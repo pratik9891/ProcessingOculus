@@ -1,3 +1,7 @@
+//Thanks to Sven gothel and the entire JOGL team 
+//for providing Oculus support at opengl level.
+//For more info: https://github.com/sgothel/jogl
+
 package processing.oculus;
 
 import java.util.Arrays;
@@ -8,6 +12,7 @@ import javax.media.opengl.GLFBODrawable;
 import javax.media.opengl.awt.GLCanvas;
 
 import com.jogamp.newt.opengl.GLWindow;
+import com.jogamp.oculusvr.ovrMatrix4f;
 import com.jogamp.opengl.FBObject;
 import com.jogamp.opengl.math.FloatUtil;
 import com.jogamp.opengl.math.FovHVHalves;
@@ -34,6 +39,7 @@ public class POculus extends PJOGL {
 
 	public PMatrix3D oculusProjection;
 	public PMatrix3D oculusModelView;
+	public float fov;
 
 	@Override
 	protected void registerListeners() {
@@ -238,21 +244,18 @@ public class POculus extends PJOGL {
 
 		private final float[] vec3Tmp3 = new float[3];
 
-		private final float zNear = 2f;
+		private final float zNear = pg.cameraNear;
 
-		private final float zFar = 10000f;
-
-		private final float zViewDist = 20.0f;
+		private final float zFar = pg.cameraFar;
 
 		@Override
 		public void reshapeForEye(final GLAutoDrawable drawable, final int x,
 				final int y, final int width, final int height,
 				final EyeParameter eyeParam, final EyePose eyePose) {
-
 			getGL(drawable);
 			// //Projection Matrix
 			if (gl2x != null) {
-
+				
 				final float[] mat4Projection = FloatUtil.makePerspective(
 						mat4Tmp1, 0, true, eyeParam.fovhv, zNear, zFar);
 				PMatrix3D proj = new PMatrix3D(mat4Projection[0],
@@ -264,7 +267,7 @@ public class POculus extends PJOGL {
 						mat4Projection[14], mat4Projection[3],
 						mat4Projection[7], mat4Projection[11],
 						mat4Projection[15]);
-
+				fov = eyeParam.fovhv.vertFov();
 				oculusProjection = proj;
 
 				final Quaternion rollPitchYaw = new Quaternion();
@@ -293,6 +296,7 @@ public class POculus extends PJOGL {
 						mat4Modelview[13], mat4Modelview[2], mat4Modelview[6],
 						mat4Modelview[10], mat4Modelview[14], mat4Modelview[3],
 						mat4Modelview[7], mat4Modelview[11], mat4Modelview[15]);
+				//model.invert();
 				oculusModelView = model;
 			}
 

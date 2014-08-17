@@ -1,4 +1,4 @@
-How to install library POculus
+How to install library Processing Oculus
 
 
 Install with the "Add Library..." tool
@@ -26,19 +26,19 @@ By default the following locations are used for your sketchbook folder:
   For Windows users, the sketchbook folder is located inside 
     'My Documents'/Processing.
 
-The folder structure for library POculus should be as follows:
+The folder structure for library Processing Oculus should be as follows:
 
 Processing
   libraries
-    POculus
+    Processing Oculus
       examples
       library
-        POculus.jar
+        Processing Oculus.jar
       reference
       src
                       
 Some folders like "examples" or "src" might be missing. After library 
-POculus has been successfully installed, restart the Processing 
+Processing Oculus has been successfully installed, restart the Processing 
 application.
 
 
