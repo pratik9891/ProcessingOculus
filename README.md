@@ -1,6 +1,6 @@
 
 ##Description
-The POculus library intends to render processing sketches for Oculus. It uses JOGL support for Oculus to achieve this functionaility.
+The POculus library intends to render processing sketches to Oculus. It uses JOGL support for Oculus to achieve this functionaility.
 
 POculus provides an Oculus renderer which needs to be specified in size(). Anything you now draw will be rendered in Oculus view.
 
